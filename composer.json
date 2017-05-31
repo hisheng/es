@@ -8,5 +8,11 @@
     ],
     "require": {
         "elasticsearch/elasticsearch": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Es\\": "src/",
+            "Test\\":"test"
+        }
     }
 }

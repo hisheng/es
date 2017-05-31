@@ -5,7 +5,7 @@
  * Date: 2017/5/10
  * Time: 13:53
  */
-namespace App\Es;
+namespace Es;
 
 use Elasticsearch\ClientBuilder;
 
@@ -16,10 +16,10 @@ class IndexEs implements EsInterface
     protected $client;
     protected $parms = [];
     
-    public function __construct(ClientBuilder $clientBuilder)
+    public function __construct()
     {
         $this->setConfig();
-        $this->client = $clientBuilder::create()->build();
+        $this->client = ClientBuilder::create()->build();
     }
     
     public function setConfig(){

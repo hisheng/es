@@ -11,6 +11,10 @@ class ComposerStaticInite916b65bfa52c439fdcd035f7184efec
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Test\\' => 5,
+        ),
         'R' => 
         array (
             'React\\Promise\\' => 14,
@@ -26,11 +30,16 @@ class ComposerStaticInite916b65bfa52c439fdcd035f7184efec
         ),
         'E' => 
         array (
+            'Es\\' => 3,
             'Elasticsearch\\' => 14,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Test\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/test',
+        ),
         'React\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
@@ -46,6 +55,10 @@ class ComposerStaticInite916b65bfa52c439fdcd035f7184efec
         'GuzzleHttp\\Ring\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
+        ),
+        'Es\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Elasticsearch\\' => 
         array (
