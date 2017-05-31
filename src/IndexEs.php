@@ -63,5 +63,26 @@ class IndexEs implements EsInterface
         
     }
     
+    public function save(){
+        $response = $this->client->index($this->parms);
+        return $response;
+    }
+    
+    public function add($id,$body){
+        if($id){
+            $this->parms['id'] = $id;
+        }
+        if($body){
+            $this->parms['body'] = $body;
+        }
+        
+        return $this;
+    }
+    
+    public function insert($id,$body){
+        $this->add($id,$body);
+        $this->save();
+    }
+    
     
 }
