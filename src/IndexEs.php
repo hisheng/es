@@ -19,7 +19,7 @@ class IndexEs implements EsInterface
     public function __construct()
     {
         $this->setConfig();
-        $this->client = ClientBuilder::create()->build();
+        $this->client = ClientBuilder::create()->setHosts(['192.168.1.17'])->build();
     }
     
     public function setConfig(){
