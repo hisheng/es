@@ -19,7 +19,8 @@ class IndexEs implements EsInterface
     public function __construct()
     {
         $this->setConfig();
-        $this->client = ClientBuilder::create()->setHosts(['192.168.1.17'])->build();
+        $this->client = ClientBuilder::create()->build();
+        //$this->client = ClientBuilder::create()->setHosts(['192.168.1.17'])->build();
     }
     
     public function setConfig(){
@@ -34,8 +35,8 @@ class IndexEs implements EsInterface
     }
     
     //有错误 多个ids [100,20 ] 类似这样
-    public function findIn($ids){
-        $this->parms['ids'] = $ids;
+    public function findIn($ids){  
+        $this->parms['body']['ids'] = $ids;
         return $this->client->mget($this->parms);
     }
     
