@@ -8,6 +8,7 @@
 namespace Es;
 
 use Elasticsearch\ClientBuilder;
+use Es\Exceptions\EsException;
 
 class IndexEs implements EsInterface
 {
@@ -83,6 +84,17 @@ class IndexEs implements EsInterface
     public function insert($id,$body){
         $this->add($id,$body);
         return $this->save();
+    }
+    
+    //删除某一个 id ;
+    public function delete($id){
+        $this->parms['id'] = $id;
+        try {
+            $rs = $this->client->delete($this->parms);
+        } catch (\Exception $exception) {
+            return 0;
+        }
+        return $rs;
     }
     
     

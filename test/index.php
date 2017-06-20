@@ -11,7 +11,8 @@ $subhdEs = new \Test\SubhdEs();
 //$s = $subhdEs->find(335407);
 //var_dump($s);
 
-
+$re = $subhdEs->delete(113);
+var_dump($re);
 $result = $subhdEs->insert('113',[
     'z_id' => 'subhd_113',
     'name'=>'求婚大作战',
