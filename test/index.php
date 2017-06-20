@@ -11,8 +11,9 @@ $subhdEs = new \Test\SubhdEs();
 //$s = $subhdEs->find(335407);
 //var_dump($s);
 
-$subhdEs->insert('112',[
-    'z_id' => 'subhd_112',
+
+$result = $subhdEs->insert('113',[
+    'z_id' => 'subhd_113',
     'name'=>'求婚大作战',
     'role'=>'山下智久,长泽雅美,藤木直人,荣仓奈奈,平冈佑太,滨田岳,松重丰',
     'category' =>'剧情,爱情,奇幻 ',
@@ -33,7 +34,7 @@ $subhdEs->insert('112',[
 //$ss = $subhdEs->find(112);
 //var_dump($ss);
 
-
+var_dump($result);exit;
 
 $subhdEs2 = new \Test\SubhdEs();
 $sss = $subhdEs2->find(112);

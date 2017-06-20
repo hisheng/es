@@ -35,7 +35,7 @@ class IndexEs implements EsInterface
     }
     
     //有错误 多个ids [100,20 ] 类似这样
-    public function findIn($ids){  
+    public function findIn($ids){
         $this->parms['body']['ids'] = $ids;
         return $this->client->mget($this->parms);
     }
@@ -82,7 +82,7 @@ class IndexEs implements EsInterface
     
     public function insert($id,$body){
         $this->add($id,$body);
-        $this->save();
+        return $this->save();
     }
     
     
