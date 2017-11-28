@@ -5,7 +5,7 @@
  * Date: 2017/5/10
  * Time: 14:01
  */
-namespace Test;
+namespace EsModel;
 use Es\IndexEs;
 
 class SubhdEs extends IndexEs

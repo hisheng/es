@@ -14,7 +14,7 @@ class IndexEs implements EsInterface
     protected $index;
     protected $type;
     protected $client;
-    protected $parms = [];
+    public $parms = [];
     
     public function __construct()
     {
@@ -101,5 +101,149 @@ class IndexEs implements EsInterface
         $this->parms['body'] = $dsl;
         return $this->gets();
     }
+    
+    //增加 map映射  在索引中创建mapping，就好像在mysql中创建了一个表一样
+    public function mapping($properties = [])
+    {
+        $this->parms['body']['settings'] = [
+            'number_of_shards' => 3,
+            'number_of_replicas' => 1
+        ];
+    
+        $this->parms['body']['mappings']['_default_'] = [    //默认配置
+                '_source' => [
+                    'enabled' => true
+                ],
+                'properties'=>[
+                    'id' => [
+                        'type' => 'integer'
+                    ],
+                    'disabled' => [
+                        'type' => 'integer',
+                        'index' => 'not_analyzed'
+                    ],
+                    'status' => [
+                        'type' => 'integer',
+                        'index' => 'not_analyzed'
+                    ],
+                    'date' => [
+                        'type' => 'date',
+                        'format' => 'yyyy-MM-dd'
+                    ],
+                    'created_at' => [
+                        'type' => 'date',
+                        'format' => 'yyyy-MM-dd HH:mm:ss||yyyy-MM-dd'
+                    ],
+                    'updated_at' => [
+                        'type' => 'date',
+                        'format' => 'yyyy-MM-dd HH:mm:ss||yyyy-MM-dd'
+                    ],
+                ]
+        ];
+        $this->parms['body']['mappings'][$this->type] = [
+                '_source' => [
+                    'enabled' => true
+                ],
+                'properties'=>$properties
+        ];
+        return $this;
+    }
+    
+    public function putMapping($properties)
+    {
+        $this->parms['body']['mappings'][$this->type] = [
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties'=>$properties
+        ];
+        var_dump( $this->parms);
+        return $this->client->indices()->putMapping($this->parms);
+    }
+    
+    public function createIndex($properties = [])
+    {
+        //$this->mapping($properties);
+        //var_dump($this->parms);exit;
+        var_dump($this->client->indices()->exists(['index'=>$this->index]));
+        
+        $this->parms['body']['settings'] = [
+            'number_of_shards' => 3,
+            'number_of_replicas' => 1
+        ];
+    
+        $this->parms['body']['mappings']['_default_'] = [    //默认配置
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties'=>[
+                'id' => [
+                    'type' => 'integer'
+                ],
+                'disabled' => [
+                    'type' => 'integer',
+                    'index' => 'not_analyzed'
+                ],
+                'status' => [
+                    'type' => 'integer',
+                    'index' => 'not_analyzed'
+                ],
+                'date' => [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd'
+                ],
+                'created_at' => [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd HH:mm:ss||yyyy-MM-dd'
+                ],
+                'updated_at' => [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd HH:mm:ss||yyyy-MM-dd'
+                ],
+            ]
+        ];
+        $this->parms['body']['mappings'][$this->type] = [
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties'=>$properties
+        ];
+        //$this->parms['body']['type'] =$this->type;
+//        var_dump($this->parms);//exit;
+//        var_dump($this->client->indices()->existsType([
+//            'index'=>$this->index,
+//            'type'=>$this->type
+//        ]));
+    
+        //var_dump($this->client->indices()->create($this->parms));
+        
+//        var_dump($this->putMapping([
+//            'z_date'=>[
+//                'type'=>'string'
+//            ]
+//        ]));
+    
+        $this->parms['body']['mappings'][$this->type] = [
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties'=>[
+                'z_date'=>[
+                    'type'=>'string'
+                ]
+            ]
+        ];
+        
+        var_dump($this->reindex());
+        exit;
+        return $this->client->indices()->create($this->parms);
+    }
+    
+    public function reindex()
+    {
+        var_dump($this->parms);
+        return $this->client->reindex($this->parms);
+    }
+    
     
 }

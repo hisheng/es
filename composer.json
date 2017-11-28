@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4": {
             "Es\\": "src/",
-            "Test\\":"test"
+            "Test\\":"test",
+            "EsModel\\":"EsModel"
         }
     }
 }
