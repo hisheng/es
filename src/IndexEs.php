@@ -8,7 +8,6 @@
 namespace Es;
 
 use Elasticsearch\ClientBuilder;
-use Es\Exceptions\EsException;
 
 class IndexEs implements EsInterface
 {
@@ -20,8 +19,8 @@ class IndexEs implements EsInterface
     public function __construct()
     {
         $this->setConfig();
-        $this->client = ClientBuilder::create()->build();
-        //$this->client = ClientBuilder::create()->setHosts(['192.168.1.17'])->build();
+        //$this->client = ClientBuilder::create()->build();
+        $this->client = ClientBuilder::create()->setHosts(['121.196.237.158'])->build();
     }
     
     public function setConfig(){
@@ -96,6 +95,11 @@ class IndexEs implements EsInterface
         }
         return $rs;
     }
-    
+    //search dsl
+    public function search($dsl)
+    {
+        $this->parms['body'] = $dsl;
+        return $this->gets();
+    }
     
 }
